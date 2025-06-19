@@ -1,469 +1,484 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, MapPin, Building, Plus, Home, List, Search, Filter } from 'lucide-react';
+import { Clock, Star, Trophy, RotateCcw, Play, CheckCircle, XCircle } from 'lucide-react';
 
-// Navigation component
-const Navigation = ({ currentPage, setCurrentPage, jobsCount }) => (
-    <nav className="bg-blue-600 text-white p-4 shadow-lg">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <Briefcase className="w-8 h-8" />
-          Job Board
-        </h1>
-        <div className="flex gap-4">
-          <button
-            onClick={() => setCurrentPage('home')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-              currentPage === 'home' ? 'bg-blue-800' : 'hover:bg-blue-700'
-            }`}
-          >
-            <Home className="w-4 h-4" />
-            Home
-          </button>
-          <button
-            onClick={() => setCurrentPage('add')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-              currentPage === 'add' ? 'bg-blue-800' : 'hover:bg-blue-700'
-            }`}
-          >
-            <Plus className="w-4 h-4" />
-            Add Job
-          </button>
-          <button
-            onClick={() => setCurrentPage('jobs')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-              currentPage === 'jobs' ? 'bg-blue-800' : 'hover:bg-blue-700'
-            }`}
-          >
-            <List className="w-4 h-4" />
-            All Jobs ({jobsCount})
-          </button>
-        </div>
-      </div>
-    </nav>
-  );
-
-// Home Page
-const HomePage = ({ setCurrentPage }) => (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold text-gray-800 mb-6">
-            Welcome to Job Board
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Find your dream job or post opportunities for talented professionals. 
-            Your career journey starts here!
-          </p>
-          <div className="flex justify-center gap-4 mb-12">
-            <button
-              onClick={() => setCurrentPage('jobs')}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
-            >
-              <Search className="w-5 h-5" />
-              Browse Jobs
-            </button>
-            <button
-              onClick={() => setCurrentPage('add')}
-              className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center gap-2"
-            >
-              <Plus className="w-5 h-5" />
-              Post a Job
-            </button>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div 
-              onClick={() => setCurrentPage('jobs')}
-              className="bg-white p-6 rounded-lg shadow-md text-center cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200"
-            >
-              <div className="flex justify-center mb-4">
-                <Briefcase className="w-12 h-12 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">Quality Jobs</h3>
-              <p className="text-gray-600">Discover opportunities from top companies</p>
-            </div>
-            <div 
-              onClick={() => setCurrentPage('add')}
-              className="bg-white p-6 rounded-lg shadow-md text-center cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200"
-            >
-              <div className="flex justify-center mb-4">
-                <Building className="w-12 h-12 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">Easy Posting</h3>
-              <p className="text-gray-600">Post jobs in minutes with our simple form</p>
-            </div>
-            <div 
-              onClick={() => setCurrentPage('jobs')}
-              className="bg-white p-6 rounded-lg shadow-md text-center cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200"
-            >
-              <div className="flex justify-center mb-4">
-                <MapPin className="w-12 h-12 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">Location Based</h3>
-              <p className="text-gray-600">Find jobs in your preferred location</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-// Add Job Page
-const AddJobPage = ({ jobForm, handleInputChange, handleAddJob }) => (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Post a New Job</h2>
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Job Title *
-                </label>
-                <input
-                  type="text"
-                  name="title"
-                  value={jobForm.title}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="e.g., Software Engineer"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Company Name *
-                </label>
-                <input
-                  type="text"
-                  name="company"
-                  value={jobForm.company}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="e.g., Tech Solutions Inc."
-                  required
-                />
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Location *
-                  </label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={jobForm.location}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="e.g., Mumbai, India"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Job Type
-                  </label>
-                  <select
-                    name="type"
-                    value={jobForm.type}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Internship">Internship</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Salary (Optional)
-                </label>
-                <input
-                  type="text"
-                  name="salary"
-                  value={jobForm.salary}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="e.g., ₹5-8 LPA"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Job Description *
-                </label>
-                <textarea
-                  name="description"
-                  value={jobForm.description}
-                  onChange={handleInputChange}
-                  rows="6"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Describe the role, requirements, and benefits..."
-                  required
-                />
-              </div>
-              
-              <button
-                type="button"
-                onClick={handleAddJob}
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors font-semibold"
-              >
-                Post Job
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-// All Jobs Page
-const AllJobsPage = ({ 
-  jobs, 
-  filteredJobs, 
-  searchTerm, 
-  setSearchTerm, 
-  locationFilter, 
-  setLocationFilter, 
-  sortBy, 
-  setSortBy, 
-  uniqueLocations 
-}) => (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">All Jobs</h2>
-        
-        {/* Search and Filter Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="grid md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Search Jobs
-              </label>
-              <div className="relative">
-                <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Search by title, company, or description"
-                />
-              </div>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Filter by Location
-              </label>
-              <select
-                value={locationFilter}
-                onChange={(e) => setLocationFilter(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">All Locations</option>
-                {uniqueLocations.map(location => (
-                  <option key={location} value={location}>{location}</option>
-                ))}
-              </select>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sort by
-              </label>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-                <option value="title">Title A-Z</option>
-                <option value="company">Company A-Z</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        
-        {/* Jobs List */}
-        {filteredJobs.length === 0 ? (
-          <div className="text-center py-12">
-            <Briefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">No jobs found</h3>
-            <p className="text-gray-500">
-              {jobs.length === 0 ? 'Be the first to post a job!' : 'Try adjusting your search criteria'}
-            </p>
-          </div>
-        ) : (
-          <div className="grid gap-6">
-            {filteredJobs.map(job => (
-              <div key={job.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{job.title}</h3>
-                    <div className="flex items-center gap-4 text-gray-600 text-sm">
-                      <span className="flex items-center gap-1">
-                        <Building className="w-4 h-4" />
-                        {job.company}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {job.location}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                      {job.type}
-                    </span>
-                    <div className="text-sm text-gray-500 mt-1">
-                      Posted: {job.datePosted}
-                    </div>
-                  </div>
-                </div>
-                
-                {job.salary && (
-                  <div className="text-green-600 font-semibold mb-3">
-                    Salary: {job.salary}
-                  </div>
-                )}
-                
-                <p className="text-gray-700 leading-relaxed">
-                  {job.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-
-const JobBoard = () => {
+const QuizApp = () => {
   const [currentPage, setCurrentPage] = useState('home');
-  const [jobs, setJobs] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [locationFilter, setLocationFilter] = useState('');
-  const [sortBy, setSortBy] = useState('newest');
+  const [difficulty, setDifficulty] = useState('');
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [showResult, setShowResult] = useState(false);
+  const [quizComplete, setQuizComplete] = useState(false);
+  const [userAnswers, setUserAnswers] = useState([]);
 
-  // Job form state
-  const [jobForm, setJobForm] = useState({
-    title: '',
-    company: '',
-    location: '',
-    description: '',
-    salary: '',
-    type: 'Full-time'
-  });
-
-  // Load jobs from memory on component mount
-  useEffect(() => {
-    const savedJobs = localStorage.getItem('jobBoardJobs');
-    if (savedJobs) {
-      setJobs(JSON.parse(savedJobs));
+  // Quiz questions for different difficulty levels - DSA Focus
+  const quizData = {
+    easy: {
+      timeLimit: 20,
+      questions: [
+        {
+          question: "What is an Array?",
+          options: ["A collection of elements stored at contiguous memory locations", "A linked list", "A tree structure", "A hash table"],
+          correct: "A collection of elements stored at contiguous memory locations"
+        },
+        {
+          question: "What is the time complexity of accessing an element in an array by index?",
+          options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+          correct: "O(1)"
+        },
+        {
+          question: "Which data structure follows LIFO (Last In First Out) principle?",
+          options: ["Queue", "Stack", "Array", "Linked List"],
+          correct: "Stack"
+        },
+        {
+          question: "What is the time complexity of inserting an element at the end of an array?",
+          options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+          correct: "O(1)"
+        },
+        {
+          question: "Which data structure follows FIFO (First In First Out) principle?",
+          options: ["Stack", "Queue", "Tree", "Graph"],
+          correct: "Queue"
+        },
+        {
+          question: "What is a Linked List?",
+          options: ["A linear data structure where elements are stored in nodes", "An array", "A tree", "A hash table"],
+          correct: "A linear data structure where elements are stored in nodes"
+        },
+        {
+          question: "What is the space complexity of an array of size n?",
+          options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+          correct: "O(n)"
+        },
+        {
+          question: "Which operation is NOT possible on a stack?",
+          options: ["Push", "Pop", "Peek", "Random Access"],
+          correct: "Random Access"
+        }
+      ]
+    },
+    medium: {
+      timeLimit: 25,
+      questions: [
+        {
+          question: "What is the time complexity of binary search in a sorted array?",
+          options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+          correct: "O(log n)"
+        },
+        {
+          question: "Which traversal technique visits the root node first in a binary tree?",
+          options: ["Inorder", "Preorder", "Postorder", "Level order"],
+          correct: "Preorder"
+        },
+        {
+          question: "What is the worst-case time complexity of insertion sort?",
+          options: ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"],
+          correct: "O(n²)"
+        },
+        {
+          question: "Which data structure is used to implement recursion?",
+          options: ["Queue", "Stack", "Array", "Linked List"],
+          correct: "Stack"
+        },
+        {
+          question: "What is the average time complexity of hash table operations?",
+          options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+          correct: "O(1)"
+        },
+        {
+          question: "Which algorithm is used to find the shortest path in an unweighted graph?",
+          options: ["DFS", "BFS", "Dijkstra", "Bellman-Ford"],
+          correct: "BFS"
+        },
+        {
+          question: "What is the time complexity of merge sort?",
+          options: ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"],
+          correct: "O(n log n)"
+        },
+        {
+          question: "Which data structure is best for implementing a priority queue?",
+          options: ["Array", "Linked List", "Heap", "Stack"],
+          correct: "Heap"
+        }
+      ]
+    },
+    hard: {
+      timeLimit: 35,
+      questions: [
+        {
+          question: "What is the time complexity of finding the kth smallest element using quickselect?",
+          options: ["O(n)", "O(n log n)", "O(n²)", "O(k log n)"],
+          correct: "O(n)"
+        },
+        {
+          question: "Which algorithm is used to detect cycles in a directed graph?",
+          options: ["DFS with coloring", "BFS", "Union-Find", "Topological Sort"],
+          correct: "DFS with coloring"
+        },
+        {
+          question: "What is the space complexity of the recursive implementation of Fibonacci sequence?",
+          options: ["O(1)", "O(n)", "O(log n)", "O(2ⁿ)"],
+          correct: "O(n)"
+        },
+        {
+          question: "Which data structure provides the best average-case performance for dynamic sets with frequent insertions, deletions, and searches?",
+          options: ["AVL Tree", "Red-Black Tree", "Hash Table", "B-Tree"],
+          correct: "Hash Table"
+        },
+        {
+          question: "What is the time complexity of building a heap from an unsorted array?",
+          options: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
+          correct: "O(n)"
+        },
+        {
+          question: "Which algorithm is used to find strongly connected components in a directed graph?",
+          options: ["Kosaraju's Algorithm", "Kruskal's Algorithm", "Prim's Algorithm", "Floyd-Warshall"],
+          correct: "Kosaraju's Algorithm"
+        },
+        {
+          question: "What is the worst-case time complexity of quicksort?",
+          options: ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"],
+          correct: "O(n²)"
+        },
+        {
+          question: "Which technique is used to optimize recursive algorithms with overlapping subproblems?",
+          options: ["Divide and Conquer", "Greedy Approach", "Dynamic Programming", "Backtracking"],
+          correct: "Dynamic Programming"
+        }
+      ]
     }
-  }, []);
-
-  // Save jobs to memory whenever jobs change
-  useEffect(() => {
-    localStorage.setItem('jobBoardJobs', JSON.stringify(jobs));
-  }, [jobs]);
-
-  // Handle form input changes - FIXED
-  const handleInputChange = (e) => {
-    const { name, value } = e.target; // Fixed: use e.target instead of just e
-    setJobForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
   };
 
-  // Add new job
-  const handleAddJob = () => {
-    if (jobForm.title && jobForm.company && jobForm.location && jobForm.description) {
-      const newJob = {
-        id: Date.now(),
-        ...jobForm,
-        datePosted: new Date().toISOString().split('T')[0],
-        timestamp: Date.now()
-      };
-      setJobs(prev => [newJob, ...prev]);
-      setJobForm({
-        title: '',
-        company: '',
-        location: '',
-        description: '',
-        salary: '',
-        type: 'Full-time'
-      });
-      alert('Job successfully added!');
+  const currentQuiz = difficulty ? quizData[difficulty] : null;
+
+  // Timer effect
+  useEffect(() => {
+    if (currentPage === 'quiz' && timeLeft > 0 && !showResult) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    } else if (timeLeft === 0 && currentPage === 'quiz' && !showResult) {
+      handleTimeUp();
+    }
+  }, [timeLeft, currentPage, showResult]);
+
+  const startQuiz = (selectedDifficulty) => {
+    setDifficulty(selectedDifficulty);
+    setCurrentPage('quiz');
+    setCurrentQuestion(0);
+    setScore(0);
+    setTimeLeft(quizData[selectedDifficulty].timeLimit);
+    setSelectedAnswer('');
+    setShowResult(false);
+    setQuizComplete(false);
+    setUserAnswers([]);
+  };
+
+  const handleAnswerSelect = (answer) => {
+    setSelectedAnswer(answer);
+  };
+
+  const handleTimeUp = () => {
+    const newAnswers = [...userAnswers];
+    newAnswers[currentQuestion] = {
+      question: currentQuiz.questions[currentQuestion].question,
+      selected: selectedAnswer || 'No answer',
+      correct: currentQuiz.questions[currentQuestion].correct,
+      isCorrect: selectedAnswer === currentQuiz.questions[currentQuestion].correct
+    };
+    setUserAnswers(newAnswers);
+    
+    if (selectedAnswer === currentQuiz.questions[currentQuestion].correct) {
+      setScore(score + 1);
+    }
+    
+    setShowResult(true);
+  };
+
+  const handleSubmitAnswer = () => {
+    if (!selectedAnswer) return;
+    
+    const newAnswers = [...userAnswers];
+    newAnswers[currentQuestion] = {
+      question: currentQuiz.questions[currentQuestion].question,
+      selected: selectedAnswer,
+      correct: currentQuiz.questions[currentQuestion].correct,
+      isCorrect: selectedAnswer === currentQuiz.questions[currentQuestion].correct
+    };
+    setUserAnswers(newAnswers);
+    
+    if (selectedAnswer === currentQuiz.questions[currentQuestion].correct) {
+      setScore(score + 1);
+    }
+    
+    setShowResult(true);
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < currentQuiz.questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setSelectedAnswer('');
+      setShowResult(false);
+      setTimeLeft(currentQuiz.timeLimit);
     } else {
-      alert('Please fill all required fields');
+      setQuizComplete(true);
+      setCurrentPage('results');
     }
   };
 
-  // Filter and sort jobs
-  const filteredJobs = jobs
-    .filter(job => {
-      // Search filter
-      const searchMatch = searchTerm === '' || 
-        job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.description.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      // Location filter
-      const locationMatch = locationFilter === '' || 
-        job.location.toLowerCase().includes(locationFilter.toLowerCase());
-      
-      return searchMatch && locationMatch;
-    })
-    .sort((a, b) => {
-      if (sortBy === 'newest') return b.timestamp - a.timestamp;
-      if (sortBy === 'oldest') return a.timestamp - b.timestamp;
-      if (sortBy === 'title') return a.title.localeCompare(b.title);
-      if (sortBy === 'company') return a.company.localeCompare(b.company);
-      return 0;
-    });
+  const resetQuiz = () => {
+    setCurrentPage('home');
+    setDifficulty('');
+    setCurrentQuestion(0);
+    setScore(0);
+    setTimeLeft(0);
+    setSelectedAnswer('');
+    setShowResult(false);
+    setQuizComplete(false);
+    setUserAnswers([]);
+  };
 
-  // Get unique locations for filter
-  const uniqueLocations = [...new Set(jobs.map(job => job.location))];
+  const getScoreMessage = () => {
+    const percentage = (score / currentQuiz.questions.length) * 100;
+    if (percentage >= 80) return "Excellent! 🎉";
+    if (percentage >= 60) return "Good job! 👍";
+    if (percentage >= 40) return "Not bad! 👌";
+    return "Keep practicing! 💪";
+  };
 
-  return (
-    <div className="min-h-screen bg-gray-100">
-      <Navigation 
-        currentPage={currentPage} 
-        setCurrentPage={setCurrentPage} 
-        jobsCount={jobs.length} 
-      />
-      {currentPage === 'home' && <HomePage setCurrentPage={setCurrentPage} />}
-      {currentPage === 'add' && (
-        <AddJobPage 
-          jobForm={jobForm} 
-          handleInputChange={handleInputChange} 
-          handleAddJob={handleAddJob} 
-        />
-      )}
-      {currentPage === 'jobs' && (
-        <AllJobsPage 
-          jobs={jobs}
-          filteredJobs={filteredJobs}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          locationFilter={locationFilter}
-          setLocationFilter={setLocationFilter}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-          uniqueLocations={uniqueLocations}
-        />
-      )}
-    </div>
-  );
+  const formatTime = (seconds) => {
+    return `${Math.floor(seconds / 60)}:${(seconds % 60).toString().padStart(2, '0')}`;
+  };
+
+  // Home Page
+  if (currentPage === 'home') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md text-center transform hover:scale-105 transition-transform duration-300">
+          <div className="mb-8">
+            <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">DSA Quiz Master</h1>
+            <p className="text-gray-600">Test your Data Structures & Algorithms knowledge!</p>
+          </div>
+          
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Choose Difficulty Level</h2>
+            
+            <button
+              onClick={() => startQuiz('easy')}
+              className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              <div className="flex items-center justify-center space-x-2">
+                <Star className="w-5 h-5" />
+                <span>Easy (20s per question)</span>
+              </div>
+              <div className="text-sm opacity-80 mt-1">8 questions • Basic DSA concepts</div>
+            </button>
+            
+            <button
+              onClick={() => startQuiz('medium')}
+              className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              <div className="flex items-center justify-center space-x-2">
+                <Star className="w-5 h-5" />
+                <Star className="w-5 h-5" />
+                <span>Medium (25s per question)</span>
+              </div>
+              <div className="text-sm opacity-80 mt-1">8 questions • Intermediate algorithms</div>
+            </button>
+            
+            <button
+              onClick={() => startQuiz('hard')}
+              className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              <div className="flex items-center justify-center space-x-2">
+                <Star className="w-5 h-5" />
+                <Star className="w-5 h-5" />
+                <Star className="w-5 h-5" />
+                <span>Hard (35s per question)</span>
+              </div>
+              <div className="text-sm opacity-80 mt-1">8 questions • Advanced DSA topics</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Quiz Page
+  if (currentPage === 'quiz') {
+    const question = currentQuiz.questions[currentQuestion];
+    
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-2xl">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex items-center space-x-2">
+              <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                Question {currentQuestion + 1}/{currentQuiz.questions.length}
+              </span>
+              <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium capitalize">
+                {difficulty}
+              </span>
+            </div>
+            <div className={`flex items-center space-x-2 px-4 py-2 rounded-full ${timeLeft <= 5 ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+              <Clock className="w-4 h-4" />
+              <span className="font-bold">{formatTime(timeLeft)}</span>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+            <div 
+              className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${((currentQuestion + 1) / currentQuiz.questions.length) * 100}%` }}
+            ></div>
+          </div>
+
+          {/* Question */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">{question.question}</h2>
+            
+            <div className="space-y-3">
+              {question.options.map((option, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleAnswerSelect(option)}
+                  disabled={showResult}
+                  className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-300 ${
+                    showResult
+                      ? option === question.correct
+                        ? 'bg-green-100 border-green-500 text-green-800'
+                        : option === selectedAnswer && option !== question.correct
+                        ? 'bg-red-100 border-red-500 text-red-800'
+                        : 'bg-gray-100 border-gray-300'
+                      : selectedAnswer === option
+                      ? 'bg-blue-100 border-blue-500 text-blue-800'
+                      : 'bg-gray-50 border-gray-300 hover:bg-gray-100'
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <span className="w-8 h-8 rounded-full bg-white border-2 border-current flex items-center justify-center text-sm font-bold">
+                      {String.fromCharCode(65 + index)}
+                    </span>
+                    <span className="font-medium">{option}</span>
+                    {showResult && option === question.correct && <CheckCircle className="w-5 h-5 ml-auto" />}
+                    {showResult && option === selectedAnswer && option !== question.correct && <XCircle className="w-5 h-5 ml-auto" />}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-between">
+            <button
+              onClick={resetQuiz}
+              className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300"
+            >
+              Quit Quiz
+            </button>
+            
+            {!showResult ? (
+              <button
+                onClick={handleSubmitAnswer}
+                disabled={!selectedAnswer}
+                className={`font-bold py-3 px-6 rounded-xl transition-all duration-300 ${
+                  selectedAnswer
+                    ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                Submit Answer
+              </button>
+            ) : (
+              <button
+                onClick={handleNextQuestion}
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300"
+              >
+                {currentQuestion < currentQuiz.questions.length - 1 ? 'Next Question' : 'View Results'}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Results Page
+  if (currentPage === 'results') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-2xl">
+          <div className="text-center mb-8">
+            <Trophy className="w-20 h-20 text-yellow-500 mx-auto mb-4" />
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Quiz Complete!</h1>
+            <p className="text-xl text-gray-600">{getScoreMessage()}</p>
+          </div>
+
+          {/* Score Summary */}
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 mb-6">
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <div className="text-2xl font-bold text-blue-600">{score}</div>
+                <div className="text-sm text-gray-600">Correct</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-red-600">{currentQuiz.questions.length - score}</div>
+                <div className="text-sm text-gray-600">Wrong</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-purple-600">{Math.round((score / currentQuiz.questions.length) * 100)}%</div>
+                <div className="text-sm text-gray-600">Score</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Detailed Results */}
+          <div className="mb-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">Review Your Answers</h3>
+            <div className="space-y-3 max-h-60 overflow-y-auto">
+              {userAnswers.map((answer, index) => (
+                <div key={index} className={`p-4 rounded-lg border-l-4 ${answer.isCorrect ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}`}>
+                  <div className="font-medium text-gray-800 mb-2">Q{index + 1}: {answer.question}</div>
+                  <div className="text-sm space-y-1">
+                    <div className={answer.isCorrect ? 'text-green-700' : 'text-red-700'}>
+                      Your answer: {answer.selected}
+                    </div>
+                    {!answer.isCorrect && (
+                      <div className="text-green-700">
+                        Correct answer: {answer.correct}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex space-x-4">
+            <button
+              onClick={resetQuiz}
+              className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2"
+            >
+              <Play className="w-5 h-5" />
+              <span>New Quiz</span>
+            </button>
+            <button
+              onClick={() => startQuiz(difficulty)}
+              className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2"
+            >
+              <RotateCcw className="w-5 h-5" />
+              <span>Retry {difficulty}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
-export default JobBoard;
+export default QuizApp;
